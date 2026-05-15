@@ -1,0 +1,6 @@
+fastapi
+uvicorn
+GitPython
+python-dotenv
+pydantic
+httpx

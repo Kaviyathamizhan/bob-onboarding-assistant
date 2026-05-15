@@ -1,0 +1,179 @@
+{
+  "repoUrl": "https://github.com/pallets/flask",
+  "repoName": "flask",
+  "scannedAt": "2026-05-15T23:07:00+05:30",
+  "fileCount": 87,
+  "techStack": [
+    "Python 3.10+",
+    "Werkzeug >=3.1.0",
+    "Jinja2 >=3.1.2",
+    "Click >=8.1.3",
+    "ItsDangerous >=2.2.0",
+    "Blinker >=1.9.0",
+    "MarkupSafe >=2.1.1",
+    "asgiref >=3.2 (optional)",
+    "python-dotenv (optional)"
+  ],
+  "architectureSummary": "Flask follows a modular, layered architecture with clear separation of concerns. At its core, Flask implements the WSGI specification, acting as a bridge between web servers and Python web applications. The framework uses a context-based design with two primary contexts: the application context (containing app-level data like configuration) and the request context (containing request-specific data). These contexts are managed using Python's contextvars module, allowing for thread-safe and async-safe access to global-like objects (current_app, request, session, g) without actual global state. Flask's architecture is split into a sansio layer (pure Python logic, no I/O) and an I/O layer (WSGI functionality and server integration). Both the main Flask app and Blueprints inherit from a common Scaffold base class, providing consistent APIs for routing, error handling, and template registration.",
+  "modules": [
+    {
+      "id": "core-app",
+      "name": "Core Application Module",
+      "description": "Main Flask application class implementing WSGI interface and request handling. Entry point for all Flask apps.",
+      "keyFiles": [
+        "src/flask/app.py",
+        "src/flask/sansio/app.py"
+      ],
+      "imports": ["ctx", "helpers", "sessions", "templating", "wrappers", "cli", "signals"],
+      "exports": ["Flask", "route()", "run()", "wsgi_app()", "make_response()"],
+      "whereUsed": ["src/flask/__init__.py", "examples/tutorial/flaskr/__init__.py"]
+    },
+    {
+      "id": "context-management",
+      "name": "Context Management",
+      "description": "Manages application and request contexts using contextvars for thread-safe global access. Core to Flask's design pattern.",
+      "keyFiles": [
+        "src/flask/ctx.py"
+      ],
+      "imports": ["signals", "helpers"],
+      "exports": ["AppContext", "_AppCtxGlobals", "after_this_request()", "has_request_context()", "has_app_context()"],
+      "whereUsed": ["src/flask/app.py", "src/flask/globals.py", "src/flask/testing.py"]
+    },
+    {
+      "id": "blueprints",
+      "name": "Blueprints Module",
+      "description": "Provides modular application components for organizing routes and resources. Allows splitting a large app into smaller registered components.",
+      "keyFiles": [
+        "src/flask/blueprints.py",
+        "src/flask/sansio/blueprints.py"
+      ],
+      "imports": ["sansio.blueprints", "cli", "helpers"],
+      "exports": ["Blueprint", "BlueprintSetupState"],
+      "whereUsed": ["src/flask/__init__.py", "examples/tutorial/flaskr/auth.py", "examples/tutorial/flaskr/blog.py"]
+    },
+    {
+      "id": "configuration",
+      "name": "Configuration Module",
+      "description": "Handles application configuration from various sources including files, environment variables, and Python objects.",
+      "keyFiles": [
+        "src/flask/config.py"
+      ],
+      "imports": ["json", "toml", "os", "pathlib"],
+      "exports": ["Config", "ConfigAttribute"],
+      "whereUsed": ["src/flask/sansio/app.py", "src/flask/app.py"]
+    },
+    {
+      "id": "routing-helpers",
+      "name": "Routing & Helpers",
+      "description": "Utility functions for URL generation, redirects, file sending, and response handling. Used in virtually every Flask view.",
+      "keyFiles": [
+        "src/flask/helpers.py"
+      ],
+      "imports": ["globals", "signals", "werkzeug"],
+      "exports": ["url_for()", "redirect()", "abort()", "send_file()", "flash()", "make_response()"],
+      "whereUsed": ["src/flask/__init__.py", "src/flask/app.py", "src/flask/blueprints.py"]
+    },
+    {
+      "id": "request-response",
+      "name": "Request/Response Wrappers",
+      "description": "Flask-specific request and response objects extending Werkzeug's base classes with additional helpers.",
+      "keyFiles": [
+        "src/flask/wrappers.py"
+      ],
+      "imports": ["werkzeug.wrappers", "globals"],
+      "exports": ["Request", "Response"],
+      "whereUsed": ["src/flask/app.py", "src/flask/sansio/app.py"]
+    },
+    {
+      "id": "session-management",
+      "name": "Session Management",
+      "description": "Secure cookie-based session handling with cryptographic signing via ItsDangerous.",
+      "keyFiles": [
+        "src/flask/sessions.py"
+      ],
+      "imports": ["itsdangerous", "werkzeug.datastructures"],
+      "exports": ["SessionInterface", "SecureCookieSessionInterface", "SessionMixin"],
+      "whereUsed": ["src/flask/app.py", "src/flask/sansio/app.py"]
+    },
+    {
+      "id": "templating",
+      "name": "Templating Module",
+      "description": "Jinja2 template rendering with Flask-specific context injection and a dispatching loader for blueprints.",
+      "keyFiles": [
+        "src/flask/templating.py"
+      ],
+      "imports": ["jinja2", "globals"],
+      "exports": ["render_template()", "render_template_string()", "stream_template()", "Environment", "DispatchingJinjaLoader"],
+      "whereUsed": ["src/flask/__init__.py", "src/flask/app.py"]
+    },
+    {
+      "id": "cli",
+      "name": "CLI Module",
+      "description": "Command-line interface for Flask applications built on Click. Provides `flask run`, `flask shell`, and `flask routes` commands.",
+      "keyFiles": [
+        "src/flask/cli.py"
+      ],
+      "imports": ["click", "helpers"],
+      "exports": ["FlaskGroup", "AppGroup", "run_command", "shell_command", "routes_command"],
+      "whereUsed": ["src/flask/__init__.py", "src/flask/app.py"]
+    },
+    {
+      "id": "json",
+      "name": "JSON Module",
+      "description": "JSON serialization/deserialization with Flask-specific handling including datetime, UUID, and tagged JSON support.",
+      "keyFiles": [
+        "src/flask/json/__init__.py",
+        "src/flask/json/provider.py",
+        "src/flask/json/tag.py"
+      ],
+      "imports": ["globals", "json"],
+      "exports": ["jsonify()", "dumps()", "loads()", "JSONProvider"],
+      "whereUsed": ["src/flask/__init__.py", "src/flask/app.py", "src/flask/wrappers.py"]
+    },
+    {
+      "id": "signals",
+      "name": "Signals Module",
+      "description": "Event system for decoupled communication between Flask components using Blinker. Fires events on request start/finish, template render, and context push/pop.",
+      "keyFiles": [
+        "src/flask/signals.py"
+      ],
+      "imports": ["blinker"],
+      "exports": ["template_rendered", "request_started", "request_finished", "got_request_exception", "appcontext_pushed", "appcontext_popped"],
+      "whereUsed": ["src/flask/app.py", "src/flask/ctx.py", "src/flask/templating.py"]
+    },
+    {
+      "id": "testing",
+      "name": "Testing Module",
+      "description": "Test client and utilities for testing Flask applications without running a live server.",
+      "keyFiles": [
+        "src/flask/testing.py"
+      ],
+      "imports": ["werkzeug.test", "globals"],
+      "exports": ["FlaskClient", "FlaskCliRunner", "EnvironBuilder"],
+      "whereUsed": ["tests/", "examples/tutorial/tests/"]
+    },
+    {
+      "id": "views",
+      "name": "Views Module",
+      "description": "Class-based views for organizing view logic by HTTP method. Provides View and MethodView base classes.",
+      "keyFiles": [
+        "src/flask/views.py"
+      ],
+      "imports": ["typing"],
+      "exports": ["View", "MethodView"],
+      "whereUsed": ["src/flask/__init__.py"]
+    },
+    {
+      "id": "globals",
+      "name": "Globals Module",
+      "description": "Context-local proxy objects for accessing the current app, request, session, and g. These are the famous Flask globals used in every view function.",
+      "keyFiles": [
+        "src/flask/globals.py"
+      ],
+      "imports": ["werkzeug.local", "contextvars"],
+      "exports": ["current_app", "request", "session", "g", "app_ctx"],
+      "whereUsed": ["src/flask/helpers.py", "src/flask/templating.py", "src/flask/ctx.py", "src/flask/wrappers.py"]
+    }
+  ],
+  "onboardingGuide": "## Getting Started\n\n1. Begin with README.md — understand Flask's philosophy and minimal example\n2. Read src/flask/__init__.py — see the full public API\n3. Study src/flask/app.py lines 109–363 — the Flask class initialization\n4. Explore examples/tutorial/ — complete working app with best practices\n\n## Key Concepts\n\n1. WSGI Protocol — Flask implements WSGI via wsgi_app() in app.py:1566-1616\n2. Context Locals — contextvars powers thread-safe globals; study ctx.py and globals.py\n3. Application vs Request Context — two separate lifecycles\n4. Sansio Architecture — pure logic in sansio/, I/O wrappers in main modules\n5. Scaffold Pattern — common base for Flask and Blueprint in sansio/scaffold.py\n6. Signals — event-driven via Blinker in signals.py\n7. Routing — Werkzeug routing system wrapped by Flask decorators\n\n## Priority Files\n\n- src/flask/__init__.py (⭐⭐⭐) — public API\n- src/flask/app.py (⭐⭐⭐) — Flask class\n- src/flask/ctx.py (⭐⭐⭐) — context management\n- src/flask/globals.py (⭐⭐⭐) — request/session/g proxies\n- src/flask/helpers.py (⭐⭐) — url_for, redirect, abort\n- src/flask/wrappers.py (⭐⭐) — Request/Response\n- src/flask/blueprints.py (⭐⭐) — modular routes\n\n## Conventions\n\n- Type hints everywhere; from __future__ import annotations at top\n- Private functions: _leading_underscore\n- Context vars: _cv_ prefix (e.g. _cv_app)\n- Tests: pytest in tests/, mirrors source structure\n- Async: optional via asgiref; sync-first\n- Env vars: FLASK_ prefix (e.g. FLASK_DEBUG)\n- Code quality: ruff + mypy + pre-commit hooks"
+}
