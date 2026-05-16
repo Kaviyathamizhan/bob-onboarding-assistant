@@ -41,3 +41,19 @@ class WhereUsedResponse(BaseModel):
 
 class GuideResponse(BaseModel):
     guide: str
+
+
+class SubmitBobResponseRequest(BaseModel):
+    repo_url: str
+    bob_response: str    # The raw text the user copy-pasted from Bob IDE
+
+
+class PrepareContextResponse(BaseModel):
+    status: str
+    repo_name: str
+    repo_url: str
+    file_count: int
+    prompt: str
+    prompt_saved_to: str
+    instructions: str
+
