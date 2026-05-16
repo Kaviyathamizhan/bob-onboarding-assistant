@@ -24,11 +24,11 @@ def clone_repo(repo_url: str) -> tuple[str, list[FileNode]]:
 
     # Clean up if already exists
     if os.path.exists(clone_path):
-        shutil.rmtree(clone_path)
+        shutil.rmtree(clone_path, onerror=remove_readonly)
 
     os.makedirs(TEMP_DIR, exist_ok=True)
 
-    print(f"[git_service] Cloning {repo_url} → {clone_path}")
+    print(f"[git_service] Cloning {repo_url} -> {clone_path}")
     git.Repo.clone_from(repo_url, clone_path, depth=1)
     print(f"[git_service] Clone complete.")
 
@@ -39,8 +39,18 @@ def clone_repo(repo_url: str) -> tuple[str, list[FileNode]]:
     return clone_path, file_nodes
 
 
+import stat
+
+def remove_readonly(func, path, _):
+    "Clear the readonly bit and reattempt the removal"
+    os.chmod(path, stat.S_IWRITE)
+    try:
+        func(path)
+    except Exception:
+        pass
+
 def cleanup_repo(clone_path: str) -> None:
     """Remove the cloned repo from temp dir after analysis."""
     if os.path.exists(clone_path):
-        shutil.rmtree(clone_path)
+        shutil.rmtree(clone_path, onerror=remove_readonly)
         print(f"[git_service] Cleaned up {clone_path}")
