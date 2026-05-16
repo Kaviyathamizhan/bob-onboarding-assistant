@@ -22,7 +22,15 @@ def save_bob_session(prompt: str, response: str) -> None:
 def build_analysis_prompt(file_nodes: list[FileNode], repo_name: str) -> str:
     """Build the master prompt to paste into IBM Bob IDE."""
     context = build_bob_context([n.model_dump() for n in file_nodes])
-    return f"""You are analyzing the GitHub repository: {repo_name}
+    return f"""CONTEXT NOTE: All file contents are embedded directly in this message as plain text below.
+Do NOT try to access any files on disk or in your workspace.
+Do NOT say you cannot find the repository.
+Do NOT look for files in any directory.
+The complete codebase context is already provided here — simply read and analyze it.
+
+---
+
+You are analyzing the GitHub repository: {repo_name}
 
 Here are the source files (up to 100 files, 200 lines each):
 
