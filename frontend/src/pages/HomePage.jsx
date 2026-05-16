@@ -14,8 +14,8 @@ export default function HomePage() {
           Codebase onboarding assistant
         </h1>
         <p className="mt-3 text-sm text-bob-muted">
-          Turn any GitHub repo into an interactive knowledge base in under 2 minutes. Analysis is powered
-          by IBM Bob in the IDE; this UI will consume your teammate&apos;s API when ready.
+          Paste a public GitHub URL. We scan the repo, build a Bob prompt, and you run analysis in IBM Bob
+          IDE — then paste Bob&apos;s response back for your dashboard.
         </p>
       </header>
       <RepoInput onAnalyze={(url) => navigate('/analyzing', { state: { repoUrl: url } })} />

@@ -20,7 +20,7 @@ export default function ModuleList({ modules, selectedId, onSelect }) {
                 : 'text-bob-text/85 hover:bg-bob-bg/80'
             }`}
           >
-            <span className={`h-2 w-2 shrink-0 rounded-full ${DOT[m.kind] ?? 'bg-bob-muted'}`} aria-hidden />
+            <span className={`h-2 w-2 shrink-0 rounded-full ${DOT[m.kind ?? 'service'] ?? 'bg-bob-muted'}`} aria-hidden />
             <span className="truncate font-medium">{m.name}</span>
           </button>
         )
