@@ -15,11 +15,8 @@ app = FastAPI(
 # ── CORS — allow React Vite dev server and Vercel deployment ─────────────────
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:5173",          # Vite dev server
-        "https://your-app.vercel.app",    # Replace with actual Vercel URL
-    ],
-    allow_credentials=True,
+    allow_origins=["*"], # Allow all for hackathon deployment
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
