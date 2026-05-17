@@ -1,3 +1,4 @@
+import { getTechColor } from '../utils/techColors'
 import { useEffect, useMemo, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import ArchOverview from '../components/ArchOverview'
@@ -87,7 +88,7 @@ export default function DashboardPage() {
           {tech_stack.map((tech) => (
             <span
               key={tech}
-              className="rounded-full border border-bob-primary/40 bg-bob-bg px-2.5 py-0.5 font-mono text-xs text-bob-text"
+              className={`rounded-full px-3 py-1 font-mono text-xs font-semibold ${getTechColor(tech)}`}
             >
               {tech}
             </span>
@@ -135,6 +136,7 @@ export default function DashboardPage() {
               expanded={whereUsedOpen}
               loading={whereUsedLoading}
               onTrigger={handleWhereUsed}
+              moduleName={selected?.name}
             />
           </div>
         </main>

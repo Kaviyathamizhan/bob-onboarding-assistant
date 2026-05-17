@@ -1,3 +1,5 @@
+import MarkdownRenderer from './MarkdownRenderer'
+
 export default function ModuleDetail({ module }) {
   if (!module) {
     return (
@@ -15,13 +17,15 @@ export default function ModuleDetail({ module }) {
     <div className="space-y-6">
       <div>
         <h2 className="font-mono text-lg font-semibold text-bob-text">{module.name}</h2>
-        <p className="mt-2 text-sm leading-relaxed text-bob-text/90">{module.description}</p>
+        <div className="mt-2">
+          <MarkdownRenderer content={module.description || 'No description available.'} />
+        </div>
       </div>
       {/^module-\d+$/i.test(module.id) &&
-      !key_files.length &&
-      !imports.length &&
-      !exports.length &&
-      !module.description ? (
+        !key_files.length &&
+        !imports.length &&
+        !exports.length &&
+        !module.description ? (
         <p className="rounded-card border border-bob-warning/30 bg-bob-warning/10 p-3 text-xs text-bob-warning">
           Bob&apos;s reply was not in the <span className="font-mono">MODULE_ID / KEY_FILES</span> format
           the app expects. Re-run Analyze and ask Bob to follow the prompt template exactly, then submit
