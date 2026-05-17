@@ -4,6 +4,12 @@
 
 ---
 
+## 🚀 Live Demo
+- **Frontend App:** [https://bobonboard.vercel.app/](https://bobonboard.vercel.app/)
+- **Backend API:** [https://bobonboard-api.onrender.com/docs](https://bobonboard-api.onrender.com/docs)
+
+---
+
 ## Tech Stack
 
 | Layer | Technology |
@@ -134,7 +140,7 @@ VITE_API_URL=http://localhost:8000  # Frontend → Backend URL
 
 | Person | Role |
 |--------|------|
-| Person 1 | Backend + AI Pipeline (FastAPI, Bob integration, GitPython) |
+| Kaviyathamizhan | Backend + AI Pipeline (FastAPI, Bob integration, GitPython) |
 | Person 2 | Frontend (React, Vite, Tailwind, UI components) |
 
 ---
@@ -145,6 +151,6 @@ VITE_API_URL=http://localhost:8000  # Frontend → Backend URL
 - [x] Bob session logs saved in `bob_sessions/`
 - [x] `BOB_USAGE.md` documents all Bob interactions
 - [x] MIT License added
-- [ ] Frontend deployed to Vercel
-- [ ] Backend deployed to Render
+- [x] Frontend deployed to Vercel
+- [x] Backend deployed to Render
 - [ ] Demo video recorded
