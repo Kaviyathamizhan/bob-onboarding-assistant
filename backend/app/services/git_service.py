@@ -1,6 +1,7 @@
 import os
 import shutil
 import git
+import uuid
 from app.utils.file_utils import walk_repo
 from app.models.schemas import FileNode
 
@@ -20,11 +21,8 @@ def clone_repo(repo_url: str) -> tuple[str, list[FileNode]]:
     Raises on clone failure.
     """
     repo_name = get_repo_name(repo_url)
-    clone_path = os.path.join(TEMP_DIR, repo_name)
-
-    # Clean up if already exists
-    if os.path.exists(clone_path):
-        shutil.rmtree(clone_path, onerror=remove_readonly)
+    # Use UUID to prevent Windows file lock collisions if cleanup failed previously
+    clone_path = os.path.join(TEMP_DIR, f"{repo_name}_{uuid.uuid4().hex[:8]}")
 
     os.makedirs(TEMP_DIR, exist_ok=True)
 
