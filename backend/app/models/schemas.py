@@ -34,6 +34,19 @@ class AnalyzeRequest(BaseModel):
     repo_url: str
 
 
+class AnalyzePromptResponse(BaseModel):
+    status: str
+    repo_url: str
+    repo_name: str
+    file_count: int
+    prompt: str
+
+
+class SubmitBobResponseRequest(BaseModel):
+    repo_url: str
+    bob_response: str
+
+
 class WhereUsedResponse(BaseModel):
     module_id: str
     files: list[str]
