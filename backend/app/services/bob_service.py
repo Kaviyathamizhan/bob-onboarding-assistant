@@ -283,13 +283,18 @@ def parse_bob_response(response: str, repo_url: str, repo_name: str, file_count:
     Handles both strict key-value and markdown-style Bob responses.
     """
     def extract_section(text: str, heading: str) -> str:
-        marker = f"## {heading}"
-        start = text.find(marker)
-        if start == -1:
+        # Case-insensitive search for ## HEADING (with optional trailing spaces/colons)
+        pattern = re.compile(
+            r'##\s+' + re.escape(heading) + r'[^\n]*\n',
+            re.IGNORECASE
+        )
+        match = pattern.search(text)
+        if not match:
             return ""
-        start += len(marker)
-        next_heading = text.find("## ", start)
-        end = next_heading if next_heading != -1 else len(text)
+        start = match.end()
+        # Find the next ## heading
+        next_match = re.search(r'\n##\s+', text[start:])
+        end = start + next_match.start() if next_match else len(text)
         return text[start:end].strip()
 
     tech_section = extract_section(response, "TECH_STACK")
