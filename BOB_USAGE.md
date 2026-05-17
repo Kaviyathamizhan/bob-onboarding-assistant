@@ -86,3 +86,18 @@ The following files were written with Bob's assistance:
 | `bob_sessions/flask-analysis.json` | Parsed structured JSON (14 modules, full analysis) |
 | `bob_sessions/prompts-used.md` | All 5 exact prompts sent to Bob |
 | `bob_sessions/screenshots/` | Screenshots of Bob IDE sessions |
+
+---
+
+## Visual Evidence (Screenshots)
+
+Here are the screenshots demonstrating live IBM Bob IDE usage by the team members.
+
+### Kaviyathamizhan (Backend & AI Pipeline)
+![Kaviyathamizhan Usage 1](bob_sessions/screenshots/person-1%20usage%201.png)
+![Kaviyathamizhan Usage 2](bob_sessions/screenshots/person-1%20usage%202.png)
+
+### Person 2 (Frontend)
+![Person 2 Usage 1](bob_sessions/screenshots/person-2%20usage%201.jpeg)
+![Person 2 Usage 2](bob_sessions/screenshots/person-2%20usage%202.jpeg)
+![Person 2 Usage 3](bob_sessions/screenshots/person-2%20usage%203.jpeg)
