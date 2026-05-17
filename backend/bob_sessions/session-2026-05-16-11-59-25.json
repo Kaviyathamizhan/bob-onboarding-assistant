@@ -1,0 +1,5 @@
+{
+  "timestamp": "2026-05-16-11-59-25",
+  "prompt": "You are analyzing the GitHub repository: bob-onboarding-assistant\n\nHere are the source files (up to 100 files, 200 lines each):\n\n=== BOB_USAGE.md ===\n# Bob Usage Documentation\n\n## Summary\nBobOnboard uses IBM Bob for ALL major AI features.\nBob analyzes the **entire repository context** \u2014 not just single files.\nThis document tracks every Bob interaction used during the hackathon build.\n\n- **Demo repo analyzed:** https://github.com/pallets/flask\n- **Files scanned:** 87 files\n- **Total Bob prompts r...",
+  "response": "[ERROR] No Bob API key and no pre-computed analysis found...."
+}
